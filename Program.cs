@@ -20,8 +20,15 @@ while (true)
         Console.Write("Namn: ");
         string name = Console.ReadLine();
         Console.Write("Pris: ");
-        int price = int.Parse(Console.ReadLine());
-        list.Add(new Item(name, price));
+        string price = Console.ReadLine();
+        if (int.TryParse(price, out int output))
+        {
+            list.Add(new Item(name, output));
+        }
+        else
+        {
+            Console.WriteLine("=== Ange priset i siffror ===");
+        }
     }
     else if (choice == 2)
     {
