@@ -6,3 +6,6 @@ Unhandled exception. System.IndexOutOfRangeException: Index was outside the boun
 
 Då testade jag att ta bort "line 2" inne i program.cs, och då fungerade programmet. 
 
+2. På rad 28 inne på ShoppingList satte man värdet på i=1 från början, då räknas inte första produkten med i "total". För att fixa det satte jag startvärdet till 0 istället. 
+
+3. Programmet krachar när man försöker att skriva in priset med bokstäver. Jag fixade det med en TryParse. Är inputen siffror så läggs produkten till, annars så skrivs ett meddelande ut ("=== Ange priset i siffror ==="). Detta är i Program.cs
