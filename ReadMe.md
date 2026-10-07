@@ -9,3 +9,5 @@ Då testade jag att ta bort "line 2" inne i program.cs, och då fungerade progra
 2. På rad 28 inne på ShoppingList satte man värdet på i=1 från början, då räknas inte första produkten med i "total". För att fixa det satte jag startvärdet till 0 istället. 
 
 3. Programmet krachar när man försöker att skriva in priset med bokstäver. Jag fixade det med en TryParse. Är inputen siffror så läggs produkten till, annars så skrivs ett meddelande ut ("=== Ange priset i siffror ==="). Detta är i Program.cs
+
+4. Glöm inte skriva förklaring! (Program.cs choice 2 och shoppinglist.cs rad 11)
