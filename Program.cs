@@ -33,8 +33,22 @@ while (true)
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        int number = int.Parse(Console.ReadLine());
-        list.RemoveAt(number);
+        string number = Console.ReadLine();
+        if (int.TryParse(number, out int output))
+        {
+            if (output >= 0 && output <= list.Count)
+            {
+                list.RemoveAt(output);
+            }
+            else
+            {
+                Console.WriteLine(" === produkten finns inte i din lista ===");
+            }
+        }
+        else
+        {
+            Console.WriteLine(" === Ange nummret i siffror ===");
+        }
     }
     else if (choice == 3)
     {

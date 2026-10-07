@@ -8,6 +8,10 @@ class ShoppingList
     {
         this.path = path;
     }
+    public int Count
+    {
+        get { return items.Count; }
+    }
 
     public void Add(Item item)
     {
