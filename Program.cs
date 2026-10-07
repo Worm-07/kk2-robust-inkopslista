@@ -59,21 +59,15 @@ while (true)
         Console.Write("Namn att söka efter: ");
         string wanted = Console.ReadLine();
         Item found = list.Find(wanted);
-        if (int.TryParse(wanted, out int output))
+        if (found == null)
         {
-            if (found == null)
-            {
-                Console.WriteLine("Varan finns inte i listan.");
-            }
-            else
-            {
-                Console.WriteLine($"Hittade: {output}");
-            }
+            Console.WriteLine(" === Varan finns inte i listan === ");
         }
         else
         {
-            Console.WriteLine(" === Ange nummret på varan! ===");
+            Console.WriteLine($"Hittade: {found.Name} {found.Price} kr");
         }
+
     }
     else if (choice == 5)
     {
