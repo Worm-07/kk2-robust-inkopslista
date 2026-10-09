@@ -26,7 +26,18 @@ while (true)
                 string price = Console.ReadLine();
                 if (int.TryParse(price, out int output))
                 {
-                    list.Add(new Item(name, output));
+                    try
+                    {
+                        list.Add(new Item(name, output));
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.WriteLine(" === Priset kan inte vara negativt ===");
+                    }
+                    catch (ArgumentException)
+                    {
+                        Console.WriteLine(" === Namnet får inte vara tomt ===");
+                    }
                 }
                 else
                 {

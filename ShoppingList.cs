@@ -93,7 +93,7 @@ class ShoppingList
 
         foreach (string line in File.ReadAllLines(path))
         {
-            string[] parts = line.Split(':');
+            string[] parts = line.Split(':', 2);
             items.Add(new Item(parts[1], int.Parse(parts[0])));
         }
     }
