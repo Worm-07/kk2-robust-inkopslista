@@ -25,8 +25,13 @@ Programmet kraschade när man skrev in priset med bokstäver, eftersom koden anv
 
 ### Fel 4. 
 Programmet kraschade när man skrev in numret på produkten man ville ta bort med bokstäver, eftersom koden använde `int.Parse`. Jag fixade det med `int.TryParse`. 
-- Skriver man numret med bokstäver får man meddelandet (" === Ange nummret i siffror ==="). 
+- Skriver man numret med bokstäver får man meddelandet (" === Ange numret i siffror ==="). 
 - Är inputen siffror men numret inte finns i listan får man ett felmeddelande (" === produkten finns inte i din lista ===") i stället för att programmet kraschar. Giltiga nummer är 1 till antalet varor, eftersom listan visas från 1. 
 - Annars tas produkten bort. 
 
 För att kunna kontrollera numret behövde Program.cs veta hur många varor listan har. I ShoppingList.cs lade jag till egenskapen `Count` (på rad 11). Listan `items` är privat, så Program.cs kommer inte åt den direkt, men med `Count` kan Program.cs läsa hur många varor som finns i listan.
+
+### Fel 5.
+Programmet kraschade när man skrev in bokstäver i menyn, men det hände inget när man valde ett nummer utanför `1-5`. 
+Med en `TryParse` löste jag så att programmet inte kraschar om man skriver in en `string`. Jag döpte om den inmatade variabeln till `input`, så att `TryParse` matar ut `choice` istället. 
+Med en `if`-sats så kontrolleras det nu om numret ligger mellan 1-5. Om användaren nu skulle mata in en bokstav eller ett nummer utanför 1-5 så får man ett felmeddelande, att man ska välja ett nummer mellan 1-5. 

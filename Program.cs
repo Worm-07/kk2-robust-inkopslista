@@ -13,64 +13,79 @@ while (true)
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    int choice = int.Parse(Console.ReadLine());
-
-    if (choice == 1)
+    string input = Console.ReadLine();
+    if (int.TryParse(input, out int choice))
     {
-        Console.Write("Namn: ");
-        string name = Console.ReadLine();
-        Console.Write("Pris: ");
-        string price = Console.ReadLine();
-        if (int.TryParse(price, out int output))
+        if (choice >= 1 && choice <= 5)
         {
-            list.Add(new Item(name, output));
-        }
-        else
-        {
-            Console.WriteLine("=== Ange priset i siffror ===");
-        }
-    }
-    else if (choice == 2)
-    {
-        Console.Write("Nummer: ");
-        string number = Console.ReadLine();
-        if (int.TryParse(number, out int output))
-        {
-            if (output >= 1 && output <= list.Count)
+            if (choice == 1)
             {
-                list.RemoveAt(output);
+                Console.Write("Namn: ");
+                string name = Console.ReadLine();
+                Console.Write("Pris: ");
+                string price = Console.ReadLine();
+                if (int.TryParse(price, out int output))
+                {
+                    list.Add(new Item(name, output));
+                }
+                else
+                {
+                    Console.WriteLine("=== Ange priset i siffror ===");
+                }
             }
-            else
+            else if (choice == 2)
             {
-                Console.WriteLine(" === produkten finns inte i din lista ===");
+                Console.Write("Nummer: ");
+                string number = Console.ReadLine();
+                if (int.TryParse(number, out int output))
+                {
+                    if (output >= 1 && output <= list.Count)
+                    {
+                        list.RemoveAt(output);
+                    }
+                    else
+                    {
+                        Console.WriteLine(" === produkten finns inte i din lista ===");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(" === Ange numret i siffror ===");
+                }
             }
-        }
-        else
-        {
-            Console.WriteLine(" === Ange nummret i siffror ===");
-        }
-    }
-    else if (choice == 3)
-    {
-        list.Save();
-    }
-    else if (choice == 4)
-    {
-        Console.Write("Namn att söka efter: ");
-        string wanted = Console.ReadLine();
-        Item found = list.Find(wanted);
-        if (found == null)
-        {
-            Console.WriteLine(" === Varan finns inte i listan === ");
-        }
-        else
-        {
-            Console.WriteLine($"Hittade: {found.Name} {found.Price} kr");
-        }
+            else if (choice == 3)
+            {
+                list.Save();
+            }
+            else if (choice == 4)
+            {
+                Console.Write("Namn att söka efter: ");
+                string wanted = Console.ReadLine();
+                Item found = list.Find(wanted);
+                if (found == null)
+                {
+                    Console.WriteLine(" === Varan finns inte i listan === ");
+                }
+                else
+                {
+                    Console.WriteLine($"Hittade: {found.Name} {found.Price} kr");
+                }
 
+            }
+            else if (choice == 5)
+            {
+                break;
+            }
+
+        }
+        else
+        {
+            Console.WriteLine(" === Ange ett nummer mellan 1-5 ===");
+        }
     }
-    else if (choice == 5)
+    else
     {
-        break;
+        Console.WriteLine(" === Ange ett nummer mellan 1-5 ===");
     }
+
 }
