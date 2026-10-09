@@ -1,5 +1,5 @@
 ShoppingList list = new ShoppingList("items.txt");
-//list.Load();
+list.Load();
 
 while (true)
 {
@@ -36,7 +36,7 @@ while (true)
         string number = Console.ReadLine();
         if (int.TryParse(number, out int output))
         {
-            if (output >= 0 && output <= list.Count)
+            if (output >= 1 && output <= list.Count)
             {
                 list.RemoveAt(output);
             }

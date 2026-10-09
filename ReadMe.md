@@ -1,18 +1,32 @@
 ### Fel 1. 
-När jag försökte att köra programmet utan några ändringar fick jag dessa felmedelanden och programmet krachade:  
+När jag försökte att köra programmet utan några ändringar fick jag dessa felmeddelanden och programmet kraschade:  
 
 Unhandled exception. System.IndexOutOfRangeException: Index was outside the bounds of the array.
    at ShoppingList.Load() in C:\Users\emilc\OneDrive\Desktop\kk2-robust-inkopslista\ShoppingList.cs:line 90
    at Program.<Main>$(String[] args) in C:\Users\emilc\OneDrive\Desktop\kk2-robust-inkopslista\Program.cs:line 2
 
-Då testade jag att ta bort "line 2" inne i program.cs, och då fungerade programmet. 
+Först testade jag att kommentera bort `list.Load();` på rad 2 i Program.cs, och då fungerade programmet. 
+Senare insåg jag att det inte hjälper att spara listan om `list.Load()` aldrig körs, eftersom de sparade varorna då aldrig läses in igen. Därför satte jag tillbaka raden och letade i stället efter orsaken i metoden `Load`.
+
+**Orsaken i Load:** Filen sparas med radbrytningen `\r\n` efter varje rad, men `Load` delade texten med `Split('\n')`. Då blev den sista raden tom, och när koden försökte läsa `parts[1]` på en tom rad kraschade den. Dessutom blev ett `\r` kvar i slutet av varje rad. 
+Jag bytte `File.ReadAllText` och `Split('\n')` mot `File.ReadAllLines(path)`, som delar upp raderna rätt och tar bort den tomma sista raden. 
+Jag la också till en `if`-sats: om filen inte finns så görs en `return`, alltså avslutas `Load`, och programmet fortsätter ändå med en tom lista. Utan den kraschade programmet första gången man körde det, när `items.txt` ännu inte fanns.
+
+**Save:** 
+- I `try` använder jag nu `File.WriteAllLines(path, lines);` i stället för att bygga ihop en lång text med `string.Join`. Varje produkt sparas fortfarande på sin egen rad. 
+- Meddelandet "Listan är sparad." flyttade jag in i `try`. Förut låg det efter `try/catch` och skrevs ut även om det inte gick att spara. 
+- `catch` var tom, så om det inte gick att spara hände ingenting. Nu skriver den ut "Kunde inte spara listan.".
 
 ### Fel 2. 
-På rad 28 inne på ShoppingList satte man värdet på i=1 från början, då räknas inte första produkten med i "total". För att fixa det satte jag startvärdet till 0 istället. 
+I metoden `Total` i ShoppingList.cs satte man värdet på `i` till 1 från början, och då räknades inte första produkten med i totalsumman. För att fixa det satte jag startvärdet till 0 i stället. 
 
 ### Fel 3. 
-Programmet krachar när man försöker att skriva in priset med bokstäver. Jag fixade det med en TryParse. Är inputen siffror så läggs produkten till, annars så skrivs ett meddelande ut ("=== Ange priset i siffror ==="). Detta är i Program.cs
+Programmet kraschade när man skrev in priset med bokstäver, eftersom koden använde `int.Parse`. Jag bytte till `int.TryParse`. Är inputen siffror så läggs produkten till, annars skrivs ett meddelande ut ("=== Ange priset i siffror ==="). Detta är i Program.cs. 
 
 ### Fel 4. 
-Programmet krachar när man försöker ange produkten man vill ta bort med bokstäver. Jag fixade det med en TryParse. Om inputen är i siffror så tas den bort, finns inte produktnummret så får man ett felmeddelande. Skriver man in produkten med bokstäver får man meddelandet (" === Ange nummret i siffror ===");. Detta är i program.cs.
-I Shopping.List på rad 11 lade jag till metoden count. Eftersom att listan är privat så kommer list.Count inte åt den, men med Count metoden kan jag läsa hur många varor som finns i listan.
+Programmet kraschade när man skrev in numret på produkten man ville ta bort med bokstäver, eftersom koden använde `int.Parse`. Jag fixade det med `int.TryParse`. 
+- Skriver man numret med bokstäver får man meddelandet (" === Ange nummret i siffror ==="). 
+- Är inputen siffror men numret inte finns i listan får man ett felmeddelande (" === produkten finns inte i din lista ===") i stället för att programmet kraschar. Giltiga nummer är 1 till antalet varor, eftersom listan visas från 1. 
+- Annars tas produkten bort. 
+
+För att kunna kontrollera numret behövde Program.cs veta hur många varor listan har. I ShoppingList.cs lade jag till egenskapen `Count` (på rad 11). Listan `items` är privat, så Program.cs kommer inte åt den direkt, men med `Count` kan Program.cs läsa hur många varor som finns i listan.

@@ -68,29 +68,32 @@ class ShoppingList
 
         foreach (Item item in items)
         {
-            lines.Add($"{item.Price};{item.Name}");
+            lines.Add($"{item.Price} : {item.Name}");
         }
 
         try
         {
-            File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            File.WriteAllLines(path, lines);
+            Console.WriteLine("Listan är sparad.");
         }
         catch
         {
+            Console.WriteLine("Kunde inte spara listan.");
         }
 
-        Console.WriteLine("Listan är sparad.");
     }
 
     // Reads the file back into the list.
     public void Load()
     {
-        string text = File.ReadAllText(path);
-        string[] lines = text.Split('\n');
-
-        foreach (string line in lines)
+        if (!File.Exists(path))
         {
-            string[] parts = line.Split(';');
+            return;
+        }
+
+        foreach (string line in File.ReadAllLines(path))
+        {
+            string[] parts = line.Split(':');
             items.Add(new Item(parts[1], int.Parse(parts[0])));
         }
     }
