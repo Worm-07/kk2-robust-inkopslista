@@ -68,7 +68,7 @@ class ShoppingList
 
         foreach (Item item in items)
         {
-            lines.Add($"{item.Price} : {item.Name}");
+            lines.Add($"{item.Price}:{item.Name}");
         }
 
         try
