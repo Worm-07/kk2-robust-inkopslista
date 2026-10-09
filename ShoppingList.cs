@@ -76,7 +76,7 @@ class ShoppingList
             File.WriteAllLines(path, lines);
             Console.WriteLine("Listan är sparad.");
         }
-        catch
+        catch (IOException)
         {
             Console.WriteLine("Kunde inte spara listan.");
         }
