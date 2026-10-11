@@ -54,3 +54,6 @@ I `Item` använde jag däremot undantag. Att försöka skapa en vara med tomt na
 
 ### Eftertanke
 Efter ett tag när jag inte hittade `Fel 6` så frågade jag Claude och frågade om den kunde hitta fel 6. Då förklarade den att `Save` och `Load` var 2 olika problem. Så att vissa av mina commits inte stämmer helt med felnumren. 
+
+### Klassdiagram
+![Klassdiagram](Klassdiagram.drawio.png)
