@@ -87,7 +87,10 @@ class ShoppingList
         {
             Console.WriteLine("Kunde inte spara listan.");
         }
-
+        catch (UnauthorizedAccessException)
+        {
+            Console.WriteLine("Kunde inte spara listan, du saknar behörighet till filen.");
+        }
     }
 
     // Reads the file back into the list.
