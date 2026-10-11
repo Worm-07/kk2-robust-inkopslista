@@ -39,5 +39,18 @@ Programmet kraschade när man skrev in bokstäver i menyn, men det hände inget 
 Med en `TryParse` löste jag så att programmet inte kraschar om man skriver in en `string`. Jag döpte om den inmatade variabeln till `input`, så att `TryParse` matar ut `choice` istället. 
 Med en `if`-sats så kontrolleras det nu om numret ligger mellan 1-5. Om användaren nu skulle mata in en bokstav eller ett nummer utanför 1-5 så får man ett felmeddelande, att man ska välja ett nummer mellan 1-5. 
 
+## Del 2
+
+### Designval: hur `Add` säger nej när budgettaket är överskridet
+`ShoppingList` har ett budgettak på 10000 kr. Metoden `Add` räknar ut `Total() + item.Price` och om summan blir större än budgettaket så returneras `false` och varan läggs inte till. Annars läggs varan till och `true` returneras. 
+
+Varför `false`:
+En spräckt budget är inte ett fel i programmet, det är något som lätt kan hända när man använder det. `Program.cs` behöver bara veta om varan har lagts till i listan eller inte, om den inte har lagts till så skrivs ett felmeddelande ut. 
+Därför valde jag `false`. Då räcker det med en `if`-sats i `Program.cs`, medan undantag hade kräft en `try/catch` för samma sak. Med `false` blir det mindre kod och lättare att läsa. 
+
+I `Item` använde jag däremot undantag. Att försöka skapa en vara med tomt namn (`ArgumentException`) eller negativt pris (`ArgumentOutOfRangeException`), är ett fel i anropet, och konstruktorn kan inte returnera `false`. Ett objekt ska inte kunna skapas trasigt. `Program.cs` fångar båda undantagen med `try/catch`, skriver ut ett felmeddelande och fortsätter.
+
+
+
 ### Eftertanke
-Efter ett tag när jag inte hittade `Fel 6` så frågade jag Claude och frågade om den kunde hitta fel 6. Då förklarade den att `Save` och `Load` var 2 olika problem. Så att alla mina commits blir ganska vilseledande. 
+Efter ett tag när jag inte hittade `Fel 6` så frågade jag Claude och frågade om den kunde hitta fel 6. Då förklarade den att `Save` och `Load` var 2 olika problem. Så att vissa av mina commits inte stämmer helt med felnumren. 
