@@ -28,7 +28,10 @@ while (true)
                 {
                     try
                     {
-                        list.Add(new Item(name, output));
+                        if (!list.Add(new Item(name, output)))
+                        {
+                            Console.WriteLine(" === Varan får inte plats inom budgeten ===");
+                        }
                     }
                     catch (ArgumentOutOfRangeException)
                     {
